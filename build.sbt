@@ -1,0 +1,54 @@
+import org.scalatra.sbt._
+import org.scalatra.sbt.PluginKeys._
+import ScalateKeys._
+
+val ScalatraVersion = "2.5.0"
+
+ScalatraPlugin.scalatraSettings
+
+scalateSettings
+
+organization := "com.readbroccoli"
+
+name := "BroccoliStudents"
+
+version := "0.1.0-SNAPSHOT"
+
+scalaVersion := "2.12.1"
+
+resolvers += Classpaths.typesafeReleases
+
+libraryDependencies ++= Seq(
+  "org.scalatra" %% "scalatra" % ScalatraVersion,
+  "org.scalatra" %% "scalatra-scalate" % ScalatraVersion,
+  "org.scalatra" %% "scalatra-specs2" % ScalatraVersion % "test",
+  "ch.qos.logback" % "logback-classic" % "1.1.5" % "runtime",
+  "org.eclipse.jetty" % "jetty-webapp" % "9.2.15.v20160210" % "container",
+  "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided",
+  jdbc,
+  "com.typesafe.play" %% "anorm" % "2.5.3",
+  "com.zaxxer" % "HikariCP" % "2.3.2",
+  "org.bgee.log4jdbc-log4j2" % "log4jdbc-log4j2-jdbc4.1" % "1.12",
+  "mysql" % "mysql-connector-java" % "5.1.24"
+)
+
+scalateTemplateConfig in Compile := {
+  val base = (sourceDirectory in Compile).value
+  Seq(
+    TemplateConfig(
+      base / "webapp" / "WEB-INF" / "templates",
+      Seq.empty,  /* default imports should be added here */
+      Seq(
+        Binding("context", "_root_.org.scalatra.scalate.ScalatraRenderContext", importMembers = true, isImplicit = true)
+      ),  /* add extra bindings here */
+      Some("templates")
+    )
+  )
+}
+
+javaOptions ++= Seq(
+  "-Xdebug",
+  "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000"
+)
+
+enablePlugins(JettyPlugin)
