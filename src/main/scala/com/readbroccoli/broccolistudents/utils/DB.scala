@@ -9,7 +9,7 @@ import com.zaxxer.hikari.HikariDataSource
 import java.util.Properties
 import java.io.FileInputStream
 import java.io.File
-import net.sf.log4jdbc.sql.jdbcapi.DataSourceSpy
+//import net.sf.log4jdbc.sql.jdbcapi.DataSourceSpy
 
 object DB {
   val dbproperties = new Properties()
@@ -18,11 +18,11 @@ object DB {
     dbproperties.load(new FileInputStream(new File(propsLoc.get)))
   }
   else{
-    dbproperties.load(getClass.getCew
-    lassLoader.getResourceAsStream("local_hikari.properties"))
+    dbproperties.load(getClass.getClassLoader.getResourceAsStream("local_hikari.properties"))
   }*/
-  val propsLoc = "src/main/resources/local_hikari.properties";
-  dbproperties.load(new FileInputStream(new File(propsLoc)));
+  /*val propsLoc = "src/main/resources/local_hikari.properties";
+  dbproperties.load(new FileInputStream(new File(propsLoc)));*/
+  dbproperties.load(getClass.getClassLoader.getResourceAsStream("local_hikari.properties"))
   
   val hc = new HikariConfig(dbproperties);
   val ds = new HikariDataSource(hc);

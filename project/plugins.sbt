@@ -5,3 +5,7 @@ addSbtPlugin("org.scalatra.sbt" % "scalatra-sbt" % "0.5.1")
 addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "2.4.0")
 
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.0-M1")
+
+addSbtPlugin("org.flywaydb" % "flyway-sbt" % "4.1.2")
+
+resolvers += "Flyway" at "https://flywaydb.org/repo"

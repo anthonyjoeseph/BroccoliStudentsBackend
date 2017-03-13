@@ -22,29 +22,23 @@ libraryDependencies ++= Seq(
   "org.scalatra" %% "scalatra" % ScalatraVersion,
   "org.scalatra" %% "scalatra-scalate" % ScalatraVersion,
   "org.scalatra" %% "scalatra-specs2" % ScalatraVersion % "test",
+  "org.scalatra" %% "scalatra-json" % "2.5.0",
+  "org.scalatra" %% "scalatra-auth" % "2.5.0",
+  "org.json4s"   %% "json4s-jackson" % "3.5.0",
   "ch.qos.logback" % "logback-classic" % "1.1.5" % "runtime",
   "org.eclipse.jetty" % "jetty-webapp" % "9.2.15.v20160210" % "container",
   "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided",
   jdbc,
   "com.typesafe.play" %% "anorm" % "2.5.3",
   "com.zaxxer" % "HikariCP" % "2.3.2",
-  "org.bgee.log4jdbc-log4j2" % "log4jdbc-log4j2-jdbc4.1" % "1.12",
   "mysql" % "mysql-connector-java" % "5.1.24"
 )
 
-scalateTemplateConfig in Compile := {
-  val base = (sourceDirectory in Compile).value
-  Seq(
-    TemplateConfig(
-      base / "webapp" / "WEB-INF" / "templates",
-      Seq.empty,  /* default imports should be added here */
-      Seq(
-        Binding("context", "_root_.org.scalatra.scalate.ScalatraRenderContext", importMembers = true, isImplicit = true)
-      ),  /* add extra bindings here */
-      Some("templates")
-    )
-  )
-}
+flywayUrl := "jdbc:mysql://readbroccoli.com:3306/broccoli_students"
+
+flywayUser := "remote_broc_dev"
+
+flywayPassword := "Clap3000!"
 
 javaOptions ++= Seq(
   "-Xdebug",

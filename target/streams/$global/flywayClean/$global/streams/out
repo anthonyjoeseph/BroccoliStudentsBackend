@@ -1,0 +1,9 @@
+[0m[[0minfo[0m] [0mFlyway 4.1.2 by Boxfuse[0m
+[0m[[0minfo[0m] [0mDatabase: jdbc:mysql://readbroccoli.com:3306/broccoli_students (MySQL 5.5)[0m
+[0m[[0mdebug[0m] [0mScanning for SQL callbacks ...[0m
+[0m[[0mdebug[0m] [0mScanning for filesystem resources at 'src/main/resources/db/migration' (Prefix: '', Suffix: '.sql')[0m
+[0m[[0mdebug[0m] [0mScanning for resources in path: src/main/resources/db/migration (src/main/resources/db/migration)[0m
+[0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V1__create_table_USERS.sql[0m
+[0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V2__add_unique_name_USERS.sql[0m
+[0m[[0mdebug[0m] [0mCleaning schema `broccoli_students` ...[0m
+[0m[[0minfo[0m] [0mSuccessfully cleaned schema `broccoli_students` (execution time 00:00.715s)[0m
