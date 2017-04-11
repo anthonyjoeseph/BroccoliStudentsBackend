@@ -10,6 +10,8 @@ trait BroccolistudentsStack extends ScalatraServlet with JacksonJsonSupport {
   
   protected implicit val jsonFormats: Formats = DefaultFormats.withBigDecimal
   
+  def getSecret = "broccolisecretteacupsamsungbrothercuckoo"
+  
   before() {
     contentType = formats("json")
   }

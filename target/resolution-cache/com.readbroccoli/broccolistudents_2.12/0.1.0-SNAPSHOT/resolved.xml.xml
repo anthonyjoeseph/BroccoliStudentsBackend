@@ -4,7 +4,7 @@
 		module="broccolistudents_2.12"
 		revision="0.1.0-SNAPSHOT"
 		status="integration"
-		publication="20170306132929"
+		publication="20170313171854"
 	>
 		<description>
 		BroccoliStudents
@@ -53,5 +53,6 @@
 		<dependency org="com.typesafe.play" name="anorm_2.12" rev="2.5.3" conf="compile->default(compile)"/>
 		<dependency org="com.zaxxer" name="HikariCP" rev="2.3.2" conf="compile->default(compile)"/>
 		<dependency org="mysql" name="mysql-connector-java" rev="5.1.24" conf="compile->default(compile)"/>
+		<dependency org="com.jason-goodwin" name="authentikat-jwt_2.12" rev="0.4.5" conf="compile->default(compile)"/>
 	</dependencies>
 </ivy-module>

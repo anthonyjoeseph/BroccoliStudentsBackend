@@ -18,6 +18,8 @@ scalaVersion := "2.12.1"
 
 resolvers += Classpaths.typesafeReleases
 
+resolvers ++= Seq("snapshots", "releases").map(Resolver.sonatypeRepo)
+
 libraryDependencies ++= Seq(
   "org.scalatra" %% "scalatra" % ScalatraVersion,
   "org.scalatra" %% "scalatra-scalate" % ScalatraVersion,
@@ -31,7 +33,8 @@ libraryDependencies ++= Seq(
   jdbc,
   "com.typesafe.play" %% "anorm" % "2.5.3",
   "com.zaxxer" % "HikariCP" % "2.3.2",
-  "mysql" % "mysql-connector-java" % "5.1.24"
+  "mysql" % "mysql-connector-java" % "5.1.24",
+  "com.jason-goodwin" %% "authentikat-jwt" % "0.4.5"
 )
 
 flywayUrl := "jdbc:mysql://readbroccoli.com:3306/broccoli_students"

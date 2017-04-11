@@ -13,7 +13,7 @@ case class BookTitle(title:String)
 
 class DataServlet extends BroccolistudentsStack with AuthenticationSupport{
   post("/") {
-    val user = scentry.authenticate("UserPassword")
+    val user = jwtAuth
     DB.conn{implicit c =>
       val bgs = SQL"""
         select TITLE from BOOKS

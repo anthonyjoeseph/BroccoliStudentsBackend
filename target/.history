@@ -36,3 +36,11 @@ jetty:start
 package
 flywayMigrate
 ~;jetty:stop;jetty:start
+compile
+eclipse
+compile
+~;jetty:stop;jetty:start
+package
+~;jetty:stop;jetty:start
+eclipse
+~;jetty:stop;jetty:start

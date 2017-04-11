@@ -22,6 +22,8 @@ object DB {
   }*/
   /*val propsLoc = "src/main/resources/local_hikari.properties";
   dbproperties.load(new FileInputStream(new File(propsLoc)));*/
+  //changed the properties to allow writing and reading with chinese characters, as per:
+  //http://stackoverflow.com/questions/24389862/mysql-connectorj-character-set-results-does-not-support-utf8mb4
   dbproperties.load(getClass.getClassLoader.getResourceAsStream("local_hikari.properties"))
   
   val hc = new HikariConfig(dbproperties);
