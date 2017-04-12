@@ -13,23 +13,24 @@ import org.json4s.jackson.JsonMethods._
 
 import scala.reflect.runtime.universe._
 
-case class AllQuizzesRequest(bookID:String)
+case class AllQuizzesRequest(bookID:Int)
 case class ImagesAndQuizzesRawResponse(pageNumber:Int,
                                           uri:String,
                                           xPercent:Double,
                                           yPercent:Double,
                                           widthPercent:Double,
                                           heightPercent:Double,
-                                          language:Option[String],
                                           quizID:Option[Int],
+                                          languageID:Option[Int],
+                                          language:Option[String],
                                           questionID:Option[Int],
                                           question:Option[String],
-                                          response:Option[String],
                                           responseID:Option[Int],
+                                          response:Option[String],
                                           responseIsCorrect:Option[Long])
-case class Response(text:String, id:Int, isCorrect:Boolean)
-case class Question(text:String, id:Int, responses:Set[Response])
-case class QuizInLanguage(id:Int, language:String, questions:Set[Question])
+case class Response(id:Int, text:String, isCorrect:Boolean)
+case class Question(id:Int, text:String, responses:Set[Response])
+case class QuizInLanguage(id:Int, languageID:Int, language:String, questions:Set[Question])
 case class Image(uri:String, xPercent:Double, yPercent:Double, widthPercent:Double, heightPercent:Double, quizzes:Option[Set[QuizInLanguage]])
 case class Page(pageNumber:Int, images:Set[Image])
 
@@ -58,81 +59,85 @@ class QuizServlet extends BroccolistudentsStack with AuthenticationSupport{
       case Some(qr) => {
         DB.conn{implicit c =>
           var raw:List[ImagesAndQuizzesRawResponse] = SQL"""
-            select qall.PAGE_NUMBER, qall.URI, qall.X_PERCENT, qall.Y_PERCENT, qall.WIDTH_PERCENT, qall.HEIGHT_PERCENT, qall.LANGUAGE, qall.QUIZ_ID, qall.QUIZ_QUESTION_ID, qall.QUESTION_TEXT, qall.RESPONSE_TEXT, qall.RESPONSE_ID, qall.RESPONSE_ID=qcr.QUIZ_RESPONSE_ID as RESPONSE_IS_CORRECT
-            from (
-              select qlt.PAGE_NUMBER, qlt.URI, qlt.X_PERCENT, qlt.Y_PERCENT, qlt.WIDTH_PERCENT, qlt.HEIGHT_PERCENT, qlt.QUIZ_ID, qlt.LANGUAGE, qlt.QUIZ_QUESTION_ID, qlt.QUESTION_TEXT, qrt.TEXT as RESPONSE_TEXT, qrt.QUIZ_RESPONSE_ID as RESPONSE_ID
-              from (
-                select qll.PAGE_NUMBER, qll.URI, qll.X_PERCENT, qll.Y_PERCENT, qll.WIDTH_PERCENT, qll.HEIGHT_PERCENT, qll.QUIZ_ID, qll.LANGUAGE, qqt.TEXT as QUESTION_TEXT, qqt.QUIZ_QUESTION_ID
-                from (
-                  select q.PAGE_NUMBER, q.URI, q.X_PERCENT, q.Y_PERCENT, q.WIDTH_PERCENT, q.HEIGHT_PERCENT, q.QUIZ_ID, l.NAME as LANGUAGE 
-                  from (
-                        select QUIZZES.QUIZ_ID, PAGE_NUMBER, IMAGES.IMAGE_ID, URI, X_PERCENT, Y_PERCENT, WIDTH_PERCENT, HEIGHT_PERCENT from IMAGES
-                        inner join (
-                          select BOOK_PAGE_ID, PAGE_NUMBER from BOOK_PAGES where BOOK_ID=#${qr.bookID}
-                        ) bp on IMAGES.BOOK_PAGE_ID = bp.BOOK_PAGE_ID
-                        left join QUIZZES on QUIZZES.IMAGE_ID=IMAGES.IMAGE_ID
-                  ) q
-                  left join LANGUAGE_QUIZZES as lq on q.QUIZ_ID = lq.QUIZ_ID
-                  left join LANGUAGES as l on l.LANGUAGE_ID = lq.LANGUAGE_ID
-                ) qll
-                left join QUIZ_QUESTIONS as qq on qll.QUIZ_ID = qq.QUIZ_ID
-                left join QUIZ_QUESTION_TEXT as qqt on qq.QUIZ_QUESTION_ID = qqt.QUIZ_QUESTION_ID
-              ) qlt
-              left join QUIZ_RESPONSES as qr on qr.QUIZ_QUESTION_ID = qlt.QUIZ_QUESTION_ID
-              left join QUIZ_RESPONSE_TEXT as qrt on qrt.QUIZ_RESPONSE_ID = qr.QUIZ_RESPONSE_ID
-            ) qall left join QUIZ_CORRECT_RESPONSES as qcr on (qall.QUIZ_QUESTION_ID =  qcr.QUIZ_QUESTION_ID)
+            select bp.PAGE_NUMBER,
+                    IMAGES.URI, IMAGES.X_PERCENT, IMAGES.Y_PERCENT, IMAGES.WIDTH_PERCENT, IMAGES.HEIGHT_PERCENT,
+                    QUIZZES.QUIZ_ID, 
+                    LANGUAGES.LANGUAGE_ID,
+                    LANGUAGES.NAME as QUIZ_LANGUAGE,
+                    QUIZ_QUESTIONS.QUIZ_QUESTION_ID,
+                    QUIZ_QUESTION_TEXT.TEXT as QUESTION_TEXT,
+                    QUIZ_RESPONSES.QUIZ_RESPONSE_ID,
+                    QUIZ_RESPONSE_TEXT.TEXT as RESPONSE_TEXT,
+                    QUIZ_CORRECT_RESPONSES.QUIZ_RESPONSE_ID=QUIZ_RESPONSE_TEXT.QUIZ_RESPONSE_ID as RESPONSE_IS_CORRECT
+            from BOOK_PAGE_IMAGES
+            inner join (
+              select BOOK_PAGE_ID, PAGE_NUMBER from BOOK_PAGES where BOOK_ID=1
+            ) bp on BOOK_PAGE_IMAGES.BOOK_PAGE_ID=bp.BOOK_PAGE_ID
+            left join IMAGES on IMAGES.IMAGE_ID=BOOK_PAGE_IMAGES.IMAGE_ID
+            left join QUIZZES on QUIZZES.IMAGE_ID=IMAGES.IMAGE_ID
+            left join LANGUAGE_QUIZZES on LANGUAGE_QUIZZES.QUIZ_ID=QUIZZES.QUIZ_ID
+            left join LANGUAGES on LANGUAGE_QUIZZES.LANGUAGE_ID=LANGUAGES.LANGUAGE_ID
+            left join QUIZ_QUESTIONS on QUIZ_QUESTIONS.QUIZ_ID=QUIZZES.QUIZ_ID
+            left join QUIZ_QUESTION_TEXT on QUIZ_QUESTIONS.QUIZ_QUESTION_ID=QUIZ_QUESTION_TEXT.QUIZ_QUESTION_ID 
+              and QUIZ_QUESTION_TEXT.LANGUAGE_QUIZ_ID=LANGUAGE_QUIZZES.LANGUAGE_QUIZ_ID
+            left join QUIZ_RESPONSES on QUIZ_RESPONSES.QUIZ_QUESTION_ID = QUIZ_QUESTIONS.QUIZ_QUESTION_ID
+            left join QUIZ_RESPONSE_TEXT on QUIZ_RESPONSES.QUIZ_RESPONSE_ID=QUIZ_RESPONSE_TEXT.QUIZ_RESPONSE_ID
+              and QUIZ_RESPONSE_TEXT.LANGUAGE_QUIZ_ID=LANGUAGE_QUIZZES.LANGUAGE_QUIZ_ID
+            left join QUIZ_CORRECT_RESPONSES on QUIZ_RESPONSES.QUIZ_RESPONSE_ID=QUIZ_CORRECT_RESPONSES.QUIZ_RESPONSE_ID
           """.as(Macro.indexedParser[ImagesAndQuizzesRawResponse].*)
           val squashResponses = squash(
               raw,
               (a:ImagesAndQuizzesRawResponse) => 
-                  (a.pageNumber, a.uri,  a.xPercent,  a.yPercent, 
-                    a.widthPercent,  a.heightPercent,  a.language, 
-                    a.quizID,  a.questionID,  a.question),
+                  (a.pageNumber, a.uri, a.xPercent, a.yPercent, 
+                    a.widthPercent, a.heightPercent, a.quizID, 
+                    a.languageID, a.language, a.questionID, a.question),
               (a:ImagesAndQuizzesRawResponse) => a.quizID match{
-                case Some(quizID) => Some(Response(a.response.get, a.responseID.get, a.responseIsCorrect.get == 1))
+                case Some(quizID) => Some(Response(a.responseID.get, a.response.get, a.responseIsCorrect == Some(1)))
                 case None => None
               },
-              (b:(Int, String, Double, Double, Double, Double, Option[String], Option[Int], Option[Int], Option[String]),
+              (b:(Int, String, Double, Double, Double, Double, Option[Int], Option[Int], Option[String], Option[Int], Option[String]),
                c:List[Option[Response]]) => (
                   b._1, b._2, b._3, b._4, b._5, b._6, b._7,
-                  b._8, b._9, b._10, sequence(c)
+                  b._8, b._9, b._10, b._11, sequence(c)
               )
           )
           val squashQuestions = squash(
               squashResponses,
               (a:(Int, String, Double, Double, Double, Double,
-                  Option[String], Option[Int], Option[Int], Option[String], Option[Set[Response]])) => 
-                (a._1, a._2, a._3, a._4, a._5, a._6, a._7, a._8),
+                  Option[Int], Option[Int], Option[String], Option[Int], Option[String], Option[Set[Response]])) => 
+                (a._1, a._2, a._3, a._4, a._5, a._6, a._7, a._8, a._9),
               (a:(Int, String, Double, Double, Double, Double,
-                  Option[String], Option[Int], Option[Int], Option[String], Option[Set[Response]])) => {
-                a._9 match{
-                  case Some(questionID) => {
-                    val questionText = a._10.get
-                    val responses = a._11.get
-                    Some(Question(questionText, questionID, responses))
+                  Option[Int], Option[Int], Option[String], Option[Int], Option[String], Option[Set[Response]])) => {
+                a._7 match{
+                  case Some(quizID) => {
+                    val questionID = a._10.get
+                    val questionText = a._11.get
+                    val responses = a._12.get
+                    Some(Question(questionID, questionText, responses))
                   }
                   case None => None
                 }
               },
               (b:(Int, String, Double, Double, Double, Double,
-                  Option[String], Option[Int]),
+                  Option[Int], Option[Int], Option[String]),
                c:List[Option[Question]]) => {
-                (b._1, b._2, b._3, b._4, b._5,
-                    b._6, b._7, b._8, sequence(c))
+                (b._1, b._2, b._3, b._4, b._5, b._6,
+                    b._7, b._8, b._9, sequence(c))
               }
           )
           val squashQuizzes = squash(
               squashQuestions,
               (a:(Int, String, Double, Double, Double, Double,
-                  Option[String], Option[Int], Option[Set[Question]])) => 
+                  Option[Int], Option[Int], Option[String], Option[Set[Question]])) => 
                 (a._1, a._2, a._3, a._4, a._5, a._6),
               (a:(Int, String, Double, Double, Double, Double,
-                  Option[String], Option[Int], Option[Set[Question]])) => {
-                a._8 match {
+                  Option[Int], Option[Int], Option[String], Option[Set[Question]])) => {
+                a._7 match {
                   case Some(quizID) => {
-                    val language = a._7.get
-                    val questions = a._9.get
-                    Some(QuizInLanguage(quizID, language, questions))
+                    val languageID = a._8.get
+                    val language = a._9.get
+                    val questions = a._10.get
+                    Some(QuizInLanguage(quizID, languageID, language, questions))
                   }
                   case None => None
                 }
