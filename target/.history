@@ -44,3 +44,13 @@ package
 ~;jetty:stop;jetty:start
 eclipse
 ~;jetty:stop;jetty:start
+flywayMigrate
+last *:flywayMigrate
+Flyway.repair()
+flywayRepair
+flywayMigrate
+~;jetty:stop;jetty:start
+package
+quit
+exit
+~;jetty:stop;jetty:start

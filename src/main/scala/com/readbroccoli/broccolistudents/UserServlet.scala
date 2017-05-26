@@ -15,9 +15,9 @@ import org.json4s.jackson.JsonMethods._
  * @author anthonygabriele
  */
 
+case class ErrorMessage(error:String)
 case class UserCredentials(name:String, password:String)
 case class JWTResp(jwt:String)
-case class ErrorMessage(error:String)
 
 class UserServlet extends BroccolistudentsStack with AuthenticationSupport{
   post("/verify"){

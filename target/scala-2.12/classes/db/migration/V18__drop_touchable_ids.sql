@@ -1,0 +1,3 @@
+alter table TOUCHABLE_ANIMATIONS drop column TOUCHABLE_ID;
+alter table TOUCHABLE_PRONUNCIATIONS drop column TOUCHABLE_ID;
+alter table TOUCHABLE_SOUNDS drop column TOUCHABLE_ID;

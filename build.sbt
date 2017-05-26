@@ -34,7 +34,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.play" %% "anorm" % "2.5.3",
   "com.zaxxer" % "HikariCP" % "2.3.2",
   "mysql" % "mysql-connector-java" % "5.1.24",
-  "com.jason-goodwin" %% "authentikat-jwt" % "0.4.5"
+  "com.jason-goodwin" %% "authentikat-jwt" % "0.4.5",
+  "com.github.pathikrit" %% "better-files" % "3.0.0"
 )
 
 flywayUrl := "jdbc:mysql://readbroccoli.com:3306/broccoli_students"

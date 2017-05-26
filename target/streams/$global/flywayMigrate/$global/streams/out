@@ -3,8 +3,16 @@
 [0m[[0mdebug[0m] [0mScanning for SQL callbacks ...[0m
 [0m[[0mdebug[0m] [0mScanning for filesystem resources at 'src/main/resources/db/migration' (Prefix: '', Suffix: '.sql')[0m
 [0m[[0mdebug[0m] [0mScanning for resources in path: src/main/resources/db/migration (src/main/resources/db/migration)[0m
+[0m[[0mdebug[0m] [0mFiltering out resource: src/main/resources/db/migration/.DS_Store (filename: .DS_Store)[0m
 [0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V10__add_character_voices.sql[0m
 [0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V11__add_touchables.sql[0m
+[0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V12__insert_music.sql[0m
+[0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V13__add_on_delete_cascades.sql[0m
+[0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V14__fix_book_page_text.sql[0m
+[0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V15__fix_book_to_pages_relationship.sql[0m
+[0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V16__fix_book_languages.sql[0m
+[0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V17__fix_touchable_relationships.sql[0m
+[0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V18__drop_touchable_ids.sql[0m
 [0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V1__create_table_USERS.sql[0m
 [0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V2__add_unique_name_USERS.sql[0m
 [0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V3__add_books.sql[0m
@@ -17,8 +25,16 @@
 [0m[[0mdebug[0m] [0mValidating migrations ...[0m
 [0m[[0mdebug[0m] [0mScanning for filesystem resources at 'src/main/resources/db/migration' (Prefix: 'V', Suffix: '.sql')[0m
 [0m[[0mdebug[0m] [0mScanning for resources in path: src/main/resources/db/migration (src/main/resources/db/migration)[0m
+[0m[[0mdebug[0m] [0mFiltering out resource: src/main/resources/db/migration/.DS_Store (filename: .DS_Store)[0m
 [0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V10__add_character_voices.sql[0m
 [0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V11__add_touchables.sql[0m
+[0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V12__insert_music.sql[0m
+[0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V13__add_on_delete_cascades.sql[0m
+[0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V14__fix_book_page_text.sql[0m
+[0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V15__fix_book_to_pages_relationship.sql[0m
+[0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V16__fix_book_languages.sql[0m
+[0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V17__fix_touchable_relationships.sql[0m
+[0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V18__drop_touchable_ids.sql[0m
 [0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V1__create_table_USERS.sql[0m
 [0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V2__add_unique_name_USERS.sql[0m
 [0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V3__add_books.sql[0m
@@ -30,8 +46,16 @@
 [0m[[0mdebug[0m] [0mFound filesystem resource: src/main/resources/db/migration/V9__fix_chinese_characters_in_text.sql[0m
 [0m[[0mdebug[0m] [0mScanning for filesystem resources at 'src/main/resources/db/migration' (Prefix: 'R', Suffix: '.sql')[0m
 [0m[[0mdebug[0m] [0mScanning for resources in path: src/main/resources/db/migration (src/main/resources/db/migration)[0m
+[0m[[0mdebug[0m] [0mFiltering out resource: src/main/resources/db/migration/.DS_Store (filename: .DS_Store)[0m
 [0m[[0mdebug[0m] [0mFiltering out resource: src/main/resources/db/migration/V10__add_character_voices.sql (filename: V10__add_character_voices.sql)[0m
 [0m[[0mdebug[0m] [0mFiltering out resource: src/main/resources/db/migration/V11__add_touchables.sql (filename: V11__add_touchables.sql)[0m
+[0m[[0mdebug[0m] [0mFiltering out resource: src/main/resources/db/migration/V12__insert_music.sql (filename: V12__insert_music.sql)[0m
+[0m[[0mdebug[0m] [0mFiltering out resource: src/main/resources/db/migration/V13__add_on_delete_cascades.sql (filename: V13__add_on_delete_cascades.sql)[0m
+[0m[[0mdebug[0m] [0mFiltering out resource: src/main/resources/db/migration/V14__fix_book_page_text.sql (filename: V14__fix_book_page_text.sql)[0m
+[0m[[0mdebug[0m] [0mFiltering out resource: src/main/resources/db/migration/V15__fix_book_to_pages_relationship.sql (filename: V15__fix_book_to_pages_relationship.sql)[0m
+[0m[[0mdebug[0m] [0mFiltering out resource: src/main/resources/db/migration/V16__fix_book_languages.sql (filename: V16__fix_book_languages.sql)[0m
+[0m[[0mdebug[0m] [0mFiltering out resource: src/main/resources/db/migration/V17__fix_touchable_relationships.sql (filename: V17__fix_touchable_relationships.sql)[0m
+[0m[[0mdebug[0m] [0mFiltering out resource: src/main/resources/db/migration/V18__drop_touchable_ids.sql (filename: V18__drop_touchable_ids.sql)[0m
 [0m[[0mdebug[0m] [0mFiltering out resource: src/main/resources/db/migration/V1__create_table_USERS.sql (filename: V1__create_table_USERS.sql)[0m
 [0m[[0mdebug[0m] [0mFiltering out resource: src/main/resources/db/migration/V2__add_unique_name_USERS.sql (filename: V2__add_unique_name_USERS.sql)[0m
 [0m[[0mdebug[0m] [0mFiltering out resource: src/main/resources/db/migration/V3__add_books.sql (filename: V3__add_books.sql)[0m
@@ -41,37 +65,19 @@
 [0m[[0mdebug[0m] [0mFiltering out resource: src/main/resources/db/migration/V7__test_quiz_data.sql (filename: V7__test_quiz_data.sql)[0m
 [0m[[0mdebug[0m] [0mFiltering out resource: src/main/resources/db/migration/V8__fix_incorrect_quiz_response.sql (filename: V8__fix_incorrect_quiz_response.sql)[0m
 [0m[[0mdebug[0m] [0mFiltering out resource: src/main/resources/db/migration/V9__fix_chinese_characters_in_text.sql (filename: V9__fix_chinese_characters_in_text.sql)[0m
-[0m[[0minfo[0m] [0mSuccessfully validated 11 migrations (execution time 00:00.194s)[0m
+[0m[[0minfo[0m] [0mSuccessfully validated 18 migrations (execution time 00:00.186s)[0m
 [0m[[0mdebug[0m] [0mSchema `broccoli_students` already exists. Skipping schema creation.[0m
-[0m[[0minfo[0m] [0mCurrent version of schema `broccoli_students`: 10[0m
-[0m[[0mdebug[0m] [0mFound statement at line 2: alter table IMAGES drop foreign key IMAGES_ibfk_1[0m
-[0m[[0mdebug[0m] [0mFound statement at line 3: alter table IMAGES drop column BOOK_PAGE_ID[0m
-[0m[[0mdebug[0m] [0mFound statement at line 5: create table TOUCHABLE_ANIMATIONS([0m
-[0m[[0mdebug[0m] [0m  IMAGE_ID bigint not null,[0m
-[0m[[0mdebug[0m] [0m  foreign key (IMAGE_ID) references IMAGES(IMAGE_ID),[0m
-[0m[[0mdebug[0m] [0m  [0m
-[0m[[0mdebug[0m] [0m  TOUCHABLE_ID bigint not null,[0m
-[0m[[0mdebug[0m] [0m  foreign key (TOUCHABLE_ID) references TOUCHABLES(TOUCHABLE_ID),[0m
-[0m[[0mdebug[0m] [0m  [0m
-[0m[[0mdebug[0m] [0m  TOUCHABLE_ANIMATION_ID bigint not null AUTO_INCREMENT,[0m
-[0m[[0mdebug[0m] [0m  primary key (TOUCHABLE_ANIMATION_ID)[0m
-[0m[[0mdebug[0m] [0m)[0m
-[0m[[0minfo[0m] [0mMigrating schema `broccoli_students` to version 11 - add touchables[0m
-[0m[[0mdebug[0m] [0mExecuting SQL: alter table IMAGES drop foreign key IMAGES_ibfk_1[0m
-[0m[[0mdebug[0m] [0mUpdate Count: 4[0m
-[0m[[0mdebug[0m] [0mExecuting SQL: alter table IMAGES drop column BOOK_PAGE_ID[0m
-[0m[[0mdebug[0m] [0mUpdate Count: 4[0m
-[0m[[0mdebug[0m] [0mExecuting SQL: create table TOUCHABLE_ANIMATIONS([0m
-[0m[[0mdebug[0m] [0m  IMAGE_ID bigint not null,[0m
-[0m[[0mdebug[0m] [0m  foreign key (IMAGE_ID) references IMAGES(IMAGE_ID),[0m
-[0m[[0mdebug[0m] [0m  [0m
-[0m[[0mdebug[0m] [0m  TOUCHABLE_ID bigint not null,[0m
-[0m[[0mdebug[0m] [0m  foreign key (TOUCHABLE_ID) references TOUCHABLES(TOUCHABLE_ID),[0m
-[0m[[0mdebug[0m] [0m  [0m
-[0m[[0mdebug[0m] [0m  TOUCHABLE_ANIMATION_ID bigint not null AUTO_INCREMENT,[0m
-[0m[[0mdebug[0m] [0m  primary key (TOUCHABLE_ANIMATION_ID)[0m
-[0m[[0mdebug[0m] [0m)[0m
+[0m[[0minfo[0m] [0mCurrent version of schema `broccoli_students`: 17[0m
+[0m[[0mdebug[0m] [0mFound statement at line 1: alter table TOUCHABLE_ANIMATIONS drop column TOUCHABLE_ID[0m
+[0m[[0mdebug[0m] [0mFound statement at line 2: alter table TOUCHABLE_PRONUNCIATIONS drop column TOUCHABLE_ID[0m
+[0m[[0mdebug[0m] [0mFound statement at line 3: alter table TOUCHABLE_SOUNDS drop column TOUCHABLE_ID[0m
+[0m[[0minfo[0m] [0mMigrating schema `broccoli_students` to version 18 - drop touchable ids[0m
+[0m[[0mdebug[0m] [0mExecuting SQL: alter table TOUCHABLE_ANIMATIONS drop column TOUCHABLE_ID[0m
 [0m[[0mdebug[0m] [0mUpdate Count: 0[0m
-[0m[[0mdebug[0m] [0mSuccessfully completed migration of schema `broccoli_students` to version 11 - add touchables[0m
+[0m[[0mdebug[0m] [0mExecuting SQL: alter table TOUCHABLE_PRONUNCIATIONS drop column TOUCHABLE_ID[0m
+[0m[[0mdebug[0m] [0mUpdate Count: 0[0m
+[0m[[0mdebug[0m] [0mExecuting SQL: alter table TOUCHABLE_SOUNDS drop column TOUCHABLE_ID[0m
+[0m[[0mdebug[0m] [0mUpdate Count: 0[0m
+[0m[[0mdebug[0m] [0mSuccessfully completed migration of schema `broccoli_students` to version 18 - drop touchable ids[0m
 [0m[[0mdebug[0m] [0mMetaData table `broccoli_students`.`schema_version` successfully updated to reflect changes[0m
-[0m[[0minfo[0m] [0mSuccessfully applied 1 migration to schema `broccoli_students` (execution time 00:00.887s).[0m
+[0m[[0minfo[0m] [0mSuccessfully applied 1 migration to schema `broccoli_students` (execution time 00:00.756s).[0m

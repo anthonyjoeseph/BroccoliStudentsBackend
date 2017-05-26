@@ -34,7 +34,11 @@ case class QuizInLanguage(id:Int, languageID:Int, language:String, questions:Set
 case class Image(uri:String, xPercent:Double, yPercent:Double, widthPercent:Double, heightPercent:Double, quizzes:Option[Set[QuizInLanguage]])
 case class Page(pageNumber:Int, images:Set[Image])
 
+case class MusicRequest(bookID:Int)
+case class MusicRawResponse(pageNumber:Int, uri:String)
+
 case class UserResponse(chosenResponses:List[Int])
+
 
 /**
  * @author anthonygabriele
@@ -168,6 +172,25 @@ class QuizServlet extends BroccolistudentsStack with AuthenticationSupport{
         }
       }
       case None => BadRequest(ErrorMessage("Unable to parse requested bookID"))
+    }
+  }
+  post("/music"){
+    val userID = jwtAuth.get.userid
+    parsedBody.extractOpt[MusicRequest] match {
+      case Some(mr) => {
+        DB.conn{implicit c =>
+          var raw:List[MusicRawResponse] = SQL"""
+            select bp.PAGE_NUMBER, MUSIC.URI
+            from BOOK_PAGE_MUSIC
+            inner join (
+              select BOOK_PAGE_ID, PAGE_NUMBER from BOOK_PAGES where BOOK_ID=#${mr.bookID}
+            ) bp on BOOK_PAGE_MUSIC.BOOK_PAGE_ID=bp.BOOK_PAGE_ID
+            left join MUSIC on MUSIC.MUSIC_ID=BOOK_PAGE_MUSIC.MUSIC_ID
+          """.as(Macro.indexedParser[MusicRawResponse].*)
+          Ok(raw)
+        }
+      }
+      case None => BadRequest(ErrorMessage("Unable to parse responses"))
     }
   }
   
