@@ -14,7 +14,7 @@ import better.files._
 import better.files.File._
 import java.nio.file.attribute.PosixFilePermission
 
-
+//small change for git
 case class DeletePageImageRequest(baseURI: String, pageNumber: Int)
 case class DeleteBookRequest(baseURI: String)
 

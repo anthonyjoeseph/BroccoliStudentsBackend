@@ -9,26 +9,26 @@
 		extra-sbtVersion="0.13"
 		conf="runtime"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool"
-		date="20170308120327"/>
+		date="20170530103337"/>
 	<dependencies>
 		<module organisation="org.flywaydb" name="flyway-sbt">
-			<revision name="4.1.2" status="release" pubdate="20170306062459" resolver="Flyway" artresolver="Flyway" homepage="" extra-scalaVersion="2.10" extra-sbtVersion="0.13" downloaded="true" searched="true" default="false" conf="default, compile, runtime, default(compile), master" position="75">
-				<metadata-artifact status="successful" details="" size="1316" time="143" location="/Users/anthonygabriele/.ivy2/cache/scala_2.10/sbt_0.13/org.flywaydb/flyway-sbt/ivy-4.1.2.xml" searched="true" original-local-location="/Users/anthonygabriele/.ivy2/cache/scala_2.10/sbt_0.13/org.flywaydb/flyway-sbt/ivy-4.1.2.xml.original" origin-is-local="false" origin-location="https://flywaydb.org/repo/org/flywaydb/flyway-sbt_2.10_0.13/4.1.2/flyway-sbt-4.1.2.pom"/>
+			<revision name="4.1.2" status="release" pubdate="20170306062459" resolver="sbt-chain" artresolver="sbt-chain" homepage="" extra-scalaVersion="2.10" extra-sbtVersion="0.13" downloaded="false" searched="false" default="false" conf="default, compile, runtime, default(compile), master" position="75">
+				<metadata-artifact status="no" details="" size="2981" time="0" location="/Users/anthonygabriele/.ivy2/cache/scala_2.10/sbt_0.13/org.flywaydb/flyway-sbt/ivy-4.1.2.xml" searched="false" origin-is-local="false" origin-location="https://flywaydb.org/repo/org/flywaydb/flyway-sbt_2.10_0.13/4.1.2/flyway-sbt-4.1.2.pom"/>
 				<caller organisation="default" name="broccolistudentsbackend-build" conf="compile, runtime" rev="4.1.2" rev-constraint-default="4.1.2" rev-constraint-dynamic="4.1.2" callerrev="0.1-SNAPSHOT" extra-scalaVersion="2.10" extra-sbtVersion="0.13"/>
 				<artifacts>
-					<artifact name="flyway-sbt" type="jar" ext="jar" status="successful" details="" size="118012" time="231" location="/Users/anthonygabriele/.ivy2/cache/scala_2.10/sbt_0.13/org.flywaydb/flyway-sbt/jars/flyway-sbt-4.1.2.jar">
+					<artifact name="flyway-sbt" type="jar" ext="jar" status="no" details="" size="118012" time="0" location="/Users/anthonygabriele/.ivy2/cache/scala_2.10/sbt_0.13/org.flywaydb/flyway-sbt/jars/flyway-sbt-4.1.2.jar">
 						<origin-location is-local="false" location="https://flywaydb.org/repo/org/flywaydb/flyway-sbt_2.10_0.13/4.1.2/flyway-sbt-4.1.2.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
 		</module>
 		<module organisation="org.flywaydb" name="flyway-core">
-			<revision name="4.1.2" status="release" pubdate="20170306052455" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="76">
+			<revision name="4.1.2" status="release" pubdate="20170306052455" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="76">
 				<license name="Apache License, Version 2.0" url="https://github.com/flyway/flyway/blob/master/LICENSE.txt"/>
-				<metadata-artifact status="successful" details="" size="21045" time="151" location="/Users/anthonygabriele/.ivy2/cache/org.flywaydb/flyway-core/ivy-4.1.2.xml" searched="true" original-local-location="/Users/anthonygabriele/.ivy2/cache/org.flywaydb/flyway-core/ivy-4.1.2.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/flywaydb/flyway-core/4.1.2/flyway-core-4.1.2.pom"/>
+				<metadata-artifact status="no" details="" size="17194" time="0" location="/Users/anthonygabriele/.ivy2/cache/org.flywaydb/flyway-core/ivy-4.1.2.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/flywaydb/flyway-core/4.1.2/flyway-core-4.1.2.pom"/>
 				<caller organisation="org.flywaydb" name="flyway-sbt" conf="default, compile, runtime, master" rev="4.1.2" rev-constraint-default="4.1.2" rev-constraint-dynamic="4.1.2" callerrev="4.1.2"/>
 				<artifacts>
-					<artifact name="flyway-core" type="jar" ext="jar" status="successful" details="" size="383441" time="122" location="/Users/anthonygabriele/.ivy2/cache/org.flywaydb/flyway-core/jars/flyway-core-4.1.2.jar">
+					<artifact name="flyway-core" type="jar" ext="jar" status="no" details="" size="383441" time="0" location="/Users/anthonygabriele/.ivy2/cache/org.flywaydb/flyway-core/jars/flyway-core-4.1.2.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/flywaydb/flyway-core/4.1.2/flyway-core-4.1.2.jar"/>
 					</artifact>
 				</artifacts>
