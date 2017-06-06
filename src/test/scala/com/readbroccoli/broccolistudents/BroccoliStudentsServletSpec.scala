@@ -1,4 +1,4 @@
-package com.readbroccoli.broccolistudents
+package com.broccoli.backend
 
 import org.scalatra.test.specs2._
 
@@ -8,7 +8,7 @@ class BroccoliStudentsServletSpec extends ScalatraSpec { def is =
     "should return status 200"                  ! root200^
                                                 end
 
-  addServlet(classOf[BroccoliStudentsServlet], "/*")
+  addServlet(classOf[BookMakerServlet], "/*")
 
   def root200 = get("/") {
     status must_== 200

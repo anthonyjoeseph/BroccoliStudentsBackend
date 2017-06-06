@@ -1,9 +1,9 @@
-package com.readbroccoli.broccolistudents
+package com.broccoli.backend
 
 import anorm._
 import anorm.SqlParser._
-import com.readbroccoli.broccolistudents.auth.{AuthenticationSupport, JWTClaims}
-import com.readbroccoli.broccolistudents.utils.DB
+import com.broccoli.backend.auth.{AuthenticationSupport, JWTClaims}
+import org.blinkmob.scalatraseed.{DB, DBW}
 import org.scalatra.{Ok, Forbidden, Conflict, InternalServerError}
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException
 import com.mysql.jdbc.MysqlDataTruncation
@@ -19,12 +19,12 @@ case class ErrorMessage(error:String)
 case class UserCredentials(name:String, password:String)
 case class JWTResp(jwt:String)
 
-class UserServlet extends BroccolistudentsStack with AuthenticationSupport{
+class UserServlet(db:DBW) extends BroccolistudentsStack with AuthenticationSupport{
   post("/verify"){
     val possibleUserOpt = parsedBody.extractOpt[UserCredentials]
     possibleUserOpt match {
       case Some(possibleUser) => {
-        DB.conn{implicit c =>
+        db.run{implicit c =>
           val userIDOpt = SQL"""
             select USER_ID from USERS where name=${possibleUser.name} and password=${possibleUser.password}
           """.as(scalar[Int].singleOpt)
@@ -46,7 +46,7 @@ class UserServlet extends BroccolistudentsStack with AuthenticationSupport{
     val newUserOpt = parsedBody.extractOpt[UserCredentials]
     newUserOpt match {
       case Some(newUser) => {
-        DB.conn{implicit c =>
+        db.run{implicit c =>
           try{
             val addUser = SQL"""
               insert into USERS (NAME, PASSWORD) VALUES ( ${newUser.name}, ${newUser.password} )

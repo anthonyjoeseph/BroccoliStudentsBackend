@@ -1,4 +1,4 @@
-package com.readbroccoli.broccolistudents
+package com.broccoli.backend
 
 import org.scalatra._
 import javax.servlet.http.HttpServletRequest

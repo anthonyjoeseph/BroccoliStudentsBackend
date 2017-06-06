@@ -1,5 +1,5 @@
 
-package com.readbroccoli.broccolistudents.utils
+package com.broccoli.backend.utils
 
 import java.sql.Connection
 import scala.util.control.ControlThrowable

@@ -1,0 +1,1 @@
+alter table USERS add UNIQUE (NAME);

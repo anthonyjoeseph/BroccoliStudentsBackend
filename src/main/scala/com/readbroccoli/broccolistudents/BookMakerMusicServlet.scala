@@ -1,9 +1,9 @@
-package com.readbroccoli.broccolistudents
+package com.broccoli.backend
 
 import anorm._
 import anorm.SqlParser._
-import com.readbroccoli.broccolistudents.auth.{AuthenticationSupport, JWTClaims}
-import com.readbroccoli.broccolistudents.utils.DB
+import com.broccoli.backend.auth.{AuthenticationSupport, JWTClaims}
+import org.blinkmob.scalatraseed.{DB, DBW}
 import org.scalatra.{Ok, Forbidden, BadRequest, Conflict, InternalServerError}
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException
 import com.mysql.jdbc.MysqlDataTruncation
@@ -21,7 +21,7 @@ import java.nio.file.attribute.PosixFilePermission
 
 case class AddMusicRequest(uri:String)
 
-class BookMakerMusicServlet extends BroccolistudentsStack with AuthenticationSupport{
+class BookMakerMusicServlet(db:DBW) extends BroccolistudentsStack with AuthenticationSupport{
   
   case class BookInfo(id:Int, title:String, baseURI:String, aspectRatio:Double, countryID:Int)
   case class Page(id:Int, pageNumber:Int, musicID:Option[Int])
@@ -48,7 +48,7 @@ class BookMakerMusicServlet extends BroccolistudentsStack with AuthenticationSup
     val dmOpt = parsedBody.extractOpt[AddPageRequest]
     dmOpt match {
       case Some(dm) => {
-        DB.conn{implicit c =>
+        db.run{implicit c =>
           val numRowsDeleted:Int = SQL"""
             delete from MUSIC where MUSIC_ID=#${dm.bookID}
           """.executeUpdate()
@@ -63,7 +63,7 @@ class BookMakerMusicServlet extends BroccolistudentsStack with AuthenticationSup
     }
   }
   get("/allMusic"){
-    DB.conn{implicit c =>
+    db.run{implicit c =>
       val music = SQL"""
         select MUSIC_ID, URI from MUSIC
       """.as(int("MUSIC_ID") ~ str("URI") map (SqlParser.flatten) *)
@@ -74,7 +74,7 @@ class BookMakerMusicServlet extends BroccolistudentsStack with AuthenticationSup
     val amOpt = parsedBody.extractOpt[AddMusicRequest]
     amOpt match {
       case Some(am) => {
-        DB.conn{implicit c =>
+        db.run{implicit c =>
           SQL("""
             insert into MUSIC (URI) values ({uri});
           """).on('uri -> am.uri).executeInsert()

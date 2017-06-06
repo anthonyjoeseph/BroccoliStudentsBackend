@@ -1,6 +1,6 @@
 
 
-import com.readbroccoli.broccolistudents._
+import com.broccoli.backend._
 import org.scalatra._
 import javax.servlet.ServletContext
 

@@ -54,3 +54,19 @@ package
 quit
 exit
 ~;jetty:stop;jetty:start
+env
+~;jetty:stop;jetty:start
+help envVars
+; eval System.setProperty("env", "test"); test
+~;jetty:stop;jetty:start
+; eval System.setProperty("env", "test"); ;jetty:stop;jetty:start
+'; eval System.setProperty("config.file","fn.conf") ; ~;jetty:stop;jetty:start
+; eval System.setProperty("env","prd") ; ~;jetty:stop;jetty:start
+name
+envVars
+envVars["env"]
+about
+sbt tasks
+tasks
+help
+~;jetty:stop;jetty:start

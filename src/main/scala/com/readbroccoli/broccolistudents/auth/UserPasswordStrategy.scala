@@ -1,4 +1,4 @@
-package com.readbroccoli.broccolistudents.auth
+package com.broccoli.backend.auth
 
 import anorm._
 import anorm.SqlParser._
@@ -9,7 +9,7 @@ import org.scalatra.json.JacksonJsonSupport
 import org.slf4j.LoggerFactory
 import javax.servlet.http.{HttpServletResponse, HttpServletRequest}
 
-import com.readbroccoli.broccolistudents.utils.DB
+import org.blinkmob.scalatraseed.{DB, DBW}
 
 case class User(id: String)
 case class UserCredentials(name:String, password:String)
@@ -39,7 +39,7 @@ class UserPasswordStrategy(protected val app: ScalatraBase)(implicit request: Ht
   override def authenticate()(implicit request: HttpServletRequest, response: HttpServletResponse): Option[User] = {
     logger.info("UserPasswordStrategy: attempting authentication")
 
-    DB.conn{implicit c =>
+    db.run{implicit c =>
       val dbPassword = SQL"""
         select PASSWORD from USERS where NAME = $username limit 1
       """.as(scalar[String].singleOpt)

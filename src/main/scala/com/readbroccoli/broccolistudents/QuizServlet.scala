@@ -1,9 +1,9 @@
-package com.readbroccoli.broccolistudents
+package com.broccoli.backend
 
 import anorm._
 import anorm.SqlParser._
-import com.readbroccoli.broccolistudents.auth.{AuthenticationSupport, JWTClaims}
-import com.readbroccoli.broccolistudents.utils.DB
+import com.broccoli.backend.auth.{AuthenticationSupport, JWTClaims}
+import org.blinkmob.scalatraseed.{DB, DBW}
 import org.scalatra.{Ok, Forbidden, BadRequest, Conflict, InternalServerError}
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException
 import com.mysql.jdbc.MysqlDataTruncation
@@ -43,7 +43,7 @@ case class UserResponse(chosenResponses:List[Int])
 /**
  * @author anthonygabriele
  */
-class QuizServlet extends BroccolistudentsStack with AuthenticationSupport{
+class QuizServlet(db:DBW) extends BroccolistudentsStack with AuthenticationSupport{
   
   def squash[A, B, C, T]( data:List[A], groupBy:A => T, extract: A => C, convert:(T, List[C]) => B): List[B] = {
     data.groupBy( g => groupBy(g) ).map{
@@ -61,7 +61,7 @@ class QuizServlet extends BroccolistudentsStack with AuthenticationSupport{
   post("/imagesAndQuizzes"){
     parsedBody.extractOpt[AllQuizzesRequest] match {
       case Some(qr) => {
-        DB.conn{implicit c =>
+        db.run{implicit c =>
           var raw:List[ImagesAndQuizzesRawResponse] = SQL"""
             select bp.PAGE_NUMBER,
                     IMAGES.URI, IMAGES.X_PERCENT, IMAGES.Y_PERCENT, IMAGES.WIDTH_PERCENT, IMAGES.HEIGHT_PERCENT,
@@ -178,7 +178,7 @@ class QuizServlet extends BroccolistudentsStack with AuthenticationSupport{
     val userID = jwtAuth.get.userid
     parsedBody.extractOpt[MusicRequest] match {
       case Some(mr) => {
-        DB.conn{implicit c =>
+        db.run{implicit c =>
           var raw:List[MusicRawResponse] = SQL"""
             select bp.PAGE_NUMBER, MUSIC.URI
             from BOOK_PAGE_MUSIC
@@ -198,7 +198,7 @@ class QuizServlet extends BroccolistudentsStack with AuthenticationSupport{
     val userID = jwtAuth.get.userid
     parsedBody.extractOpt[UserResponse] match {
       case Some(ur) => {
-        DB.conn{implicit c =>
+        db.run{implicit c =>
           ur.chosenResponses.foreach(
               (responseID) => {
                 try{

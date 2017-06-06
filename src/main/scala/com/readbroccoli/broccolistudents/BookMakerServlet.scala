@@ -1,9 +1,9 @@
-package com.readbroccoli.broccolistudents
+package com.broccoli.backend
 
 import anorm._
 import anorm.SqlParser._
-import com.readbroccoli.broccolistudents.auth.{AuthenticationSupport, JWTClaims}
-import com.readbroccoli.broccolistudents.utils.DB
+import com.broccoli.backend.auth.{AuthenticationSupport, JWTClaims}
+import org.blinkmob.scalatraseed.{DB, DBW}
 import org.scalatra.{Ok, Forbidden, BadRequest, Conflict, InternalServerError}
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException
 import com.mysql.jdbc.MysqlDataTruncation
@@ -40,7 +40,7 @@ case class EditBookRequest(
     addTagIDs:List[Int],
     removeTagIDs:List[Int])
 
-class BookMakerServlet extends BroccolistudentsStack with AuthenticationSupport{
+class BookMakerServlet(db:DBW) extends BroccolistudentsStack with AuthenticationSupport{
   
   case class BookInfo(id:Int, title:String, baseURI:String, aspectRatio:Double, countryID:Int)
   case class Page(id:Int, pageNumber:Int, musicID:Option[Int])
@@ -67,7 +67,7 @@ class BookMakerServlet extends BroccolistudentsStack with AuthenticationSupport{
     val brOpt = parsedBody.extractOpt[AddBookRequest]
     brOpt match {
       case Some(br) => {
-        DB.conn{implicit c =>
+        db.run{implicit c =>
           val bookidOpt:Option[Long] = SQL"""
             insert into BOOKS (TITLE, BASE_URI, ASPECT_RATIO, COUNTRY_ID) values (
               "#${br.title}",
@@ -121,7 +121,7 @@ class BookMakerServlet extends BroccolistudentsStack with AuthenticationSupport{
     val brOpt = parsedBody.extractOpt[EditBookRequest]
     brOpt match {
       case Some(br) => {
-        DB.conn{implicit c =>
+        db.run{implicit c =>
           SQL("""
                  update BOOKS set
                  TITLE={title},
@@ -202,7 +202,7 @@ class BookMakerServlet extends BroccolistudentsStack with AuthenticationSupport{
     val prOpt = parsedBody.extractOpt[AddPageRequest]
     prOpt match {
       case Some(pr) => {
-        DB.conn{implicit c =>
+        db.run{implicit c =>
           val numRowsDeleted:Int = SQL"""
             delete from BOOKS where BOOK_ID=#${pr.bookID}
           """.executeUpdate()
@@ -217,7 +217,7 @@ class BookMakerServlet extends BroccolistudentsStack with AuthenticationSupport{
     }
   }
   get("/tables"){
-    DB.conn{implicit c =>
+    db.run{implicit c =>
       val countries:List[(Int, String)] = SQL"""
         select COUNTRY_ID, NAME from COUNTRIES
       """.as(int("COUNTRY_ID") ~ str("NAME") map (SqlParser.flatten) *)
@@ -235,18 +235,18 @@ class BookMakerServlet extends BroccolistudentsStack with AuthenticationSupport{
   }
   get("/allBooks") {
     //ids, titles, pageIDs, pageNumbers, languageIDs, languages
-    DB.conn{implicit c =>
+    db.run{implicit c =>
       val parser = for {
         id <- int("BOOK_ID")
         title <- str("TITLE")
         baseURI <- str("BASE_URI")
         aspectRatio <- double("ASPECT_RATIO")
         countryID <- int("COUNTRY_ID")
-        bookPageIDOpt <- SqlParser.get[Option[Int]]("BOOK_PAGE_ID")
-        bookPageNumber <-SqlParser.get[Option[Int]]("PAGE_NUMBER")
-        bookPageMusicID <-SqlParser.get[Option[Int]]("MUSIC_ID")
-        characterVoiceIDOpt <- SqlParser.get[Option[Int]]("CHARACTER_VOICE_ID")
-        tagIDOpt <- SqlParser.get[Option[Int]]("TAG_ID")
+        bookPageIDOpt <- (int("BOOK_PAGE_ID") ?)
+        bookPageNumber <- (int("PAGE_NUMBER") ?)
+        bookPageMusicID <- (int("MUSIC_ID") ?)
+        characterVoiceIDOpt <- (int("CHARACTER_VOICE_ID") ?)
+        tagIDOpt <- (int("TAG_ID") ?)
         languageID <- int("LANGUAGE_ID")
       } yield (
           BookInfo(id, title, baseURI, aspectRatio, countryID),

@@ -38,6 +38,8 @@
 [0m[[0mdebug[0m] [0m	  /Users/anthonygabriele/Developer/Broccoli/BroccoliStudentsBackend/target/scala-2.12/classes/com/readbroccoli/broccolistudents/BookMakerServlet$Language$.class[0m
 [0m[[0mdebug[0m] [0m	com/readbroccoli/broccolistudents/Image.class[0m
 [0m[[0mdebug[0m] [0m	  /Users/anthonygabriele/Developer/Broccoli/BroccoliStudentsBackend/target/scala-2.12/classes/com/readbroccoli/broccolistudents/Image.class[0m
+[0m[[0mdebug[0m] [0m	com/readbroccoli/broccolistudents/BookSingulars.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/anthonygabriele/Developer/Broccoli/BroccoliStudentsBackend/target/scala-2.12/classes/com/readbroccoli/broccolistudents/BookSingulars.class[0m
 [0m[[0mdebug[0m] [0m	com/readbroccoli/broccolistudents/OnePageRequest.class[0m
 [0m[[0mdebug[0m] [0m	  /Users/anthonygabriele/Developer/Broccoli/BroccoliStudentsBackend/target/scala-2.12/classes/com/readbroccoli/broccolistudents/OnePageRequest.class[0m
 [0m[[0mdebug[0m] [0m	com/readbroccoli/broccolistudents/BookMakerPagesServlet$Book$.class[0m
@@ -68,6 +70,8 @@
 [0m[[0mdebug[0m] [0m	  /Users/anthonygabriele/Developer/Broccoli/BroccoliStudentsBackend/target/scala-2.12/classes/ScalatraBootstrap.class[0m
 [0m[[0mdebug[0m] [0m	com/readbroccoli/broccolistudents/OnePageRequest$.class[0m
 [0m[[0mdebug[0m] [0m	  /Users/anthonygabriele/Developer/Broccoli/BroccoliStudentsBackend/target/scala-2.12/classes/com/readbroccoli/broccolistudents/OnePageRequest$.class[0m
+[0m[[0mdebug[0m] [0m	application.json[0m
+[0m[[0mdebug[0m] [0m	  /Users/anthonygabriele/Developer/Broccoli/BroccoliStudentsBackend/target/scala-2.12/classes/application.json[0m
 [0m[[0mdebug[0m] [0m	com/readbroccoli/broccolistudents/PageText$.class[0m
 [0m[[0mdebug[0m] [0m	  /Users/anthonygabriele/Developer/Broccoli/BroccoliStudentsBackend/target/scala-2.12/classes/com/readbroccoli/broccolistudents/PageText$.class[0m
 [0m[[0mdebug[0m] [0m	com/readbroccoli/broccolistudents/Question.class[0m
@@ -142,6 +146,8 @@
 [0m[[0mdebug[0m] [0m	  /Users/anthonygabriele/Developer/Broccoli/BroccoliStudentsBackend/target/scala-2.12/classes/com/readbroccoli/broccolistudents/BookMakerPagesServlet$Book.class[0m
 [0m[[0mdebug[0m] [0m	com/readbroccoli/broccolistudents/BookMakerPagesServlet$Image$.class[0m
 [0m[[0mdebug[0m] [0m	  /Users/anthonygabriele/Developer/Broccoli/BroccoliStudentsBackend/target/scala-2.12/classes/com/readbroccoli/broccolistudents/BookMakerPagesServlet$Image$.class[0m
+[0m[[0mdebug[0m] [0m	dev.conf[0m
+[0m[[0mdebug[0m] [0m	  /Users/anthonygabriele/Developer/Broccoli/BroccoliStudentsBackend/target/scala-2.12/classes/dev.conf[0m
 [0m[[0mdebug[0m] [0m	com/readbroccoli/broccolistudents/InsertTextForPageRequest.class[0m
 [0m[[0mdebug[0m] [0m	  /Users/anthonygabriele/Developer/Broccoli/BroccoliStudentsBackend/target/scala-2.12/classes/com/readbroccoli/broccolistudents/InsertTextForPageRequest.class[0m
 [0m[[0mdebug[0m] [0m	com/readbroccoli/broccolistudents/Page$.class[0m
@@ -162,6 +168,8 @@
 [0m[[0mdebug[0m] [0m	  /Users/anthonygabriele/Developer/Broccoli/BroccoliStudentsBackend/target/scala-2.12/classes/com/readbroccoli/broccolistudents/BookMakerServlet$Music$.class[0m
 [0m[[0mdebug[0m] [0m	com/readbroccoli/broccolistudents/EditBookRequest.class[0m
 [0m[[0mdebug[0m] [0m	  /Users/anthonygabriele/Developer/Broccoli/BroccoliStudentsBackend/target/scala-2.12/classes/com/readbroccoli/broccolistudents/EditBookRequest.class[0m
+[0m[[0mdebug[0m] [0m	com/readbroccoli/broccolistudents/BookSingulars$.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/anthonygabriele/Developer/Broccoli/BroccoliStudentsBackend/target/scala-2.12/classes/com/readbroccoli/broccolistudents/BookSingulars$.class[0m
 [0m[[0mdebug[0m] [0m	com/readbroccoli/broccolistudents/BookMakerServlet$Book$.class[0m
 [0m[[0mdebug[0m] [0m	  /Users/anthonygabriele/Developer/Broccoli/BroccoliStudentsBackend/target/scala-2.12/classes/com/readbroccoli/broccolistudents/BookMakerServlet$Book$.class[0m
 [0m[[0mdebug[0m] [0m	com/readbroccoli/broccolistudents/UserResponse$.class[0m

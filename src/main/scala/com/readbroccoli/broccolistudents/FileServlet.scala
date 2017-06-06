@@ -1,9 +1,9 @@
-package com.readbroccoli.broccolistudents
+package com.broccoli.backend
 
 import anorm._
 import anorm.SqlParser._
-import com.readbroccoli.broccolistudents.auth.{AuthenticationSupport, JWTClaims}
-import com.readbroccoli.broccolistudents.utils.DB
+import com.broccoli.backend.auth.{AuthenticationSupport, JWTClaims}
+import org.blinkmob.scalatraseed.{DB, DBW}
 import org.scalatra.{Ok, Forbidden, BadRequest, Conflict, InternalServerError}
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException
 import com.mysql.jdbc.MysqlDataTruncation
@@ -21,7 +21,7 @@ case class DeleteBookRequest(baseURI: String)
 /**
  * @author anthonygabriele
  */
-class FileServlet extends BroccolistudentsStack with AuthenticationSupport{
+class FileServlet(db:DBW) extends BroccolistudentsStack with AuthenticationSupport{
   
   val rootPath = "/usr/share/nginx/protectedStaticFiles/"
   

@@ -1,9 +1,9 @@
-package com.readbroccoli.broccolistudents
+package com.broccoli.backend
 
 import anorm._
 import anorm.SqlParser._
-import com.readbroccoli.broccolistudents.auth.{AuthenticationSupport, JWTClaims}
-import com.readbroccoli.broccolistudents.utils.DB
+import com.broccoli.backend.auth.{AuthenticationSupport, JWTClaims}
+import org.blinkmob.scalatraseed.{DB, DBW}
 import org.scalatra.{Ok, Forbidden, BadRequest, Conflict, InternalServerError}
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException
 import com.mysql.jdbc.MysqlDataTruncation
@@ -34,7 +34,7 @@ case class addTouchableRequest(
     imageHeightPercent: Double,
     soundURI: Option[String])
 
-class BookMakerPagesServlet extends BroccolistudentsStack with AuthenticationSupport{
+class BookMakerPagesServlet(db:DBW) extends BroccolistudentsStack with AuthenticationSupport{
   
   case class BookInfo(id:Int, title:String, baseURI:String, aspectRatio:Double, countryID:Int)
   case class Page(id:Int, pageNumber:Int, musicID:Option[Int])
@@ -66,7 +66,7 @@ class BookMakerPagesServlet extends BroccolistudentsStack with AuthenticationSup
     val prOpt = parsedBody.extractOpt[AddPageRequest]
     prOpt match {
       case Some(pr) => {
-        DB.conn{implicit c =>
+        db.run{implicit c =>
           val pageNumber:Int = SQL"""
             select COUNT(BOOK_PAGE_ID) from BOOK_PAGES where BOOK_ID=#${pr.bookID}
           """.as(scalar[Int].single)
@@ -89,7 +89,7 @@ class BookMakerPagesServlet extends BroccolistudentsStack with AuthenticationSup
     val prOpt = parsedBody.extractOpt[AddPageRequest]
     prOpt match {
       case Some(pr) => {
-        DB.conn{implicit c =>
+        db.run{implicit c =>
           val pageNumber:Int = SQL"""
             select COUNT(BOOK_PAGE_ID) from BOOK_PAGES where BOOK_ID=#${pr.bookID}
           """.as(scalar[Int].single)
@@ -110,7 +110,7 @@ class BookMakerPagesServlet extends BroccolistudentsStack with AuthenticationSup
     val tpOpt = parsedBody.extractOpt[TextForPageRequest]
     tpOpt match {
       case Some(tp) => {
-        DB.conn{implicit c =>
+        db.run{implicit c =>
           val text:Option[String] = SQL"""
             select t.TEXT
             from 
@@ -136,7 +136,7 @@ class BookMakerPagesServlet extends BroccolistudentsStack with AuthenticationSup
     val tpOpt = parsedBody.extractOpt[InsertTextForPageRequest]
     tpOpt match {
       case Some(tp) => {
-        DB.conn{implicit c =>
+        db.run{implicit c =>
           SQL("""
             insert into BOOK_PAGE_TEXT (BOOK_PAGE_ID, LANGUAGE_BOOK_ID, TEXT) values (
               {pageID},
@@ -154,7 +154,7 @@ class BookMakerPagesServlet extends BroccolistudentsStack with AuthenticationSup
     val mrOpt = parsedBody.extractOpt[InsertMusicForPageRequest]
     mrOpt match {
       case Some(mr) => {
-        DB.conn{implicit c =>
+        db.run{implicit c =>
           SQL("""
             update BOOK_PAGES set MUSIC_ID={musicID} where BOOK_PAGE_ID={pageID}
           """).on('pageID -> mr.pageID, 'musicID -> mr.musicID).executeUpdate()
@@ -181,7 +181,7 @@ class BookMakerPagesServlet extends BroccolistudentsStack with AuthenticationSup
     val tpOpt = parsedBody.extractOpt[OnePageRequest]
     tpOpt match {
       case Some(tp) => {
-        DB.conn{implicit c =>
+        db.run{implicit c =>
           val parser = for {
             imageID <- int("i.IMAGE_ID")
             imageURI <- str("i.URI")
@@ -209,7 +209,7 @@ class BookMakerPagesServlet extends BroccolistudentsStack with AuthenticationSup
     val brOpt = parsedBody.extractOpt[addTouchableRequest]
     brOpt match {
       case Some(br) => {
-        DB.conn{implicit c =>
+        db.run{implicit c =>
           val imageID = SQL("""
             insert into IMAGES (URI, X_PERCENT, Y_PERCENT, WIDTH_PERCENT, HEIGHT_PERCENT, BOOK_PAGE_ID) values (
               {uri},
@@ -236,7 +236,7 @@ class BookMakerPagesServlet extends BroccolistudentsStack with AuthenticationSup
     val diOpt = parsedBody.extractOpt[DeleteTouchableImageRequest]
     diOpt match {
       case Some(di) => {
-        DB.conn{implicit c =>
+        db.run{implicit c =>
           val numRowsDeleted:Int = SQL"""
             delete from IMAGES where IMAGE_ID=#${di.imageID}
           """.executeUpdate()

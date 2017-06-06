@@ -1,0 +1,7 @@
+{
+	"appConfig": {
+		"keyInt": 1,
+		"keyString": "prod",
+		"keyBool": true
+	}
+}

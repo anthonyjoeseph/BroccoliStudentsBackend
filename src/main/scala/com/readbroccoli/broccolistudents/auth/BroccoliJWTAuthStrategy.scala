@@ -1,4 +1,4 @@
-package com.readbroccoli.broccolistudents.auth
+package com.broccoli.backend.auth
 
 import org.scalatra.ScalatraBase
 import javax.servlet.http.HttpServletRequest
